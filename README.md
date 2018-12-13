@@ -8,3 +8,5 @@ A custom dockerfile was created to generate an image to contain this Ruby applic
 A monitoring stack was included, made up of custom images for grafana and prometheus that are also built by the provisioning script. These custom images include configuration changes allowing for Cadvisor to be polled by prometheus automatically and also allow for the immediate availability of container monitoring dashboards in grafana.
 
 The provisioning script also calls the final "docker-compose up" command making that script the only thing that needs to be executed once the repository is cloned to a docker-host.
+
+After cloning this repo to a docker host simply run the https://github.com/optimumDecapitation/bonialDocker/blob/master/buildAndLaunchStack.sh script and the entire process should bring up a fully functioning stack.  Grafana login is still required, to reach the monitoring dashboards.
