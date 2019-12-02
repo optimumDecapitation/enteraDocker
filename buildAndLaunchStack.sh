@@ -4,4 +4,4 @@ docker build -t entera/prometheus ./enteraDocker/prometheusentera
 docker build -t entera/grafana ./enteraDocker/enteragrafana
 docker build -t entera/rubyloop ./enteraDocker/rubyDockerentera
 echo "launching stack"
-docker-compose up .enteraDocker/
+docker-compose up 
