@@ -1,11 +1,12 @@
 #
-# Ruby Bonial Dockerfile
+# Ruby entera Dockerfile
 #
 # https://github.com/dockerfile/ruby
 #
 
 # Pull base image.
-FROM ruby
+FROM prom/prometheus 
+ADD prometheus.yml /etc/prometheus/
 
 # Install Ruby.
 # RUN \
@@ -17,10 +18,10 @@ FROM ruby
 #WORKDIR /data
 
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY . /usr/src/app
-EXPOSE 2345
-CMD ruby main.rb
+#RUN mkdir -p /usr/src/app
+#WORKDIR /usr/src/app
+#COPY prometheus.yaml /usr/src/app/prometheus.yaml
+EXPOSE 9090
+#CMD ruby main.rb
 # Define default command.
 #CMD ["bash"]

@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "building custom images"
-docker build -t bonial/prometheus ./prometheusBonial
-docker build -t bonial/grafana ./grafanaBonial
-docker build -t optimum/rubyloop ./rubyDockerBonial
+docker build -t entera/prometheus ./prometheusentera
+docker build -t entera/grafana ./enteragrafana
+docker build -t entera/rubyloop ./rubyDockerentera
 echo "launching stack"
 docker-compose up

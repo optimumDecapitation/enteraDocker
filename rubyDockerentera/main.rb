@@ -1,4 +1,4 @@
-puts "terraform initializers started"
+puts "ruby started"
 
 require 'net/http'
 require 'socket' 
@@ -15,6 +15,9 @@ def run_control_server
         request = socket.gets
         response = "invalid"
         STDERR.puts request
+        if request.include? "/data"
+            response = $jsonReturn
+        end
         if request.include? "/hello"
             response = "Hello !\n"
         end
@@ -42,64 +45,66 @@ $availability_zone = "eu-west-1b"
 
 $public_key = "SWAP KEY HERE"
 
-$defaultTerraform = 'resource "aws_key_pair" "keys" {'+"\n"\
-' key_name   = "keys"'+"\n"\
-' public_key = "'+$public_key+'"'+"\n"\
-'}'+"\n"+"\n"\
-'resource "aws_instance" "instance" {'+"\n"\
-' ami               = "'+$ami+''+"\n"\
-' instance_type     = "'+$instance_type+''+"\n"\
-' key_name          = "keys"'+"\n"\
-' availability_zone = "'+$availability_zone+'"'+"\n"\
-'}'+"\n"\
+$jsonReturn = '{"empty":"nothing"}'
+
+# $defaultTerraform = 'resource "aws_key_pair" "keys" {'+"\n"\
+# ' key_name   = "keys"'+"\n"\
+# ' public_key = "'+$public_key+'"'+"\n"\
+# '}'+"\n"+"\n"\
+# 'resource "aws_instance" "instance" {'+"\n"\
+# ' ami               = "'+$ami+''+"\n"\
+# ' instance_type     = "'+$instance_type+''+"\n"\
+# ' key_name          = "keys"'+"\n"\
+# ' availability_zone = "'+$availability_zone+'"'+"\n"\
+# '}'+"\n"\
 
 def start_service 
     loop do  
-        # some code here
-         url = URI.parse('http://candidateexercise.s3-website-eu-west-1.amazonaws.com/exercise1.yaml')
-        req = Net::HTTP::Get.new(url.to_s)
+         url = URI.parse('http://demoentera.s3-eu-west-1.amazonaws.com/DemoEntera.json')
+         req = Net::HTTP::Get.new(url.to_s)
         res = Net::HTTP.start(url.host, url.port) {|http|
         http.request(req)
         }
         puts "response body : "+res.body
         puts "status : "+res.code
-        if res.code != 200
+        if res.code != '200'
             puts "request did not return 200, printing default"
             for counter in 0..5
                 puts "\n"
             end
-            puts "BEGIN TERRAFORM RESOURCES"
+            puts "BEGIN RESOURCES"
             for counter in 0..5
                 puts "\n"
             end
-            puts $defaultTerraform
+            puts $jsonReturn
             for counter in 0..5
                 puts "\n"
             end
-            puts "END TERRAFORM RESOURCES"
+            puts "END RESOURCES"
             for counter in 0..5
                 puts "\n"
             end
         else
             begin
-            parsed = JSON.parse(res.body) 
-            $ami = parsed["instance"]["ami"]
-            $instance_type = parsed["instance"]["instance_type"]
-            $availability_zone = parsed["instance"]["availability_zone"]
-            $public_key = parsed["key"]["public_key"]
-            puts "request suceeded and parsed outputing terraform resources"
+            #parsed = JSON.parse(res.body) 
+            $jsonReturn = res.body #parsed 
+            # $ami = parsed["instance"]["ami"]
+            # $instance_type = parsed["instance"]["instance_type"]
+            # $availability_zone = parsed["instance"]["availability_zone"]
+            # $public_key = parsed["key"]["public_key"]
+            puts "request suceeded and parsed outputing resources"
             for counter in 0..5
                 puts "\n"
             end
-            puts "BEGIN TERRAFORM RESOURCES"
+            puts "BEGIN RESOURCES"
             for counter in 0..5
                 puts "\n"
             end
-            puts $defaultTerraform
+            puts $jsonReturn
             for counter in 0..5
                 puts "\n"
             end
-            puts "END TERRAFORM RESOURCES"
+            puts "END RESOURCES"
             for counter in 0..5
                 puts "\n"
             end
