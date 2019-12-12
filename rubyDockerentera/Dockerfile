@@ -21,6 +21,9 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY . /usr/src/app
 EXPOSE 2345
-CMD ruby main.rb
+CMD ["main.rb"]
+#ENTRYPOINT ["ruby", "main.rb"]
+#RUN ruby main.rb
+#CMD ruby main.rb
 # Define default command.
 #CMD ["bash"]
