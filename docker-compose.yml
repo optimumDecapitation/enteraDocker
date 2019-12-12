@@ -57,7 +57,7 @@ services:
   
   ruby:
     image: entera/rubyloop
-    command: bash -c 'ruby test.rb'
+    command: bash -c 'ruby main.rb'
     container_name: rubyLoop
     restart: unless-stopped
     ports:
