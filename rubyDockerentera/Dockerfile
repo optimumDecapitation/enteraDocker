@@ -23,6 +23,7 @@ COPY . /usr/src/app
 EXPOSE 2345
 #CMD ["main.rb"]
 #ENTRYPOINT ["ruby", "main.rb"]
+CMD ["ruby", "main.rb"]
 #RUN ruby main.rb
 #CMD ruby main.rb
 # Define default command.

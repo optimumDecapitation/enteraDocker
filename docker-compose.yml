@@ -66,3 +66,32 @@ services:
       - monitor-net
     labels:
       org.label-schema.group: "monitoring"
+  
+  redisKV:
+    image: 'redis:latest'
+    container_name: redisKV
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    expose:
+      - '6379'
+    networks:
+      - monitor-net
+    # command:
+
+    #       redis-server up
+    #       tail -f /dev/null
+    labels:
+      org.label-schema.group: "monitoring" 
+
+  node:
+    image: entera/nodejs
+    container_name: nodejs
+    restart: unless-stopped
+    links:
+      - redisKV
+    ports:
+      - "2727:2727"
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
